@@ -31,6 +31,6 @@ export class User {
   @JoinColumn()
   avatarPhoto: Relation<AvatarPhoto>;
 
-  @OneToMany(() => Review, (review) => review.user)
+  @OneToMany(() => Review, (review) => review.user, { cascade: ['insert', 'update'] })
   reviews: Relation<Review>[];
 }
