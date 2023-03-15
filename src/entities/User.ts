@@ -1,5 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToOne,
+  OneToMany,
+  Relation,
+  JoinColumn,
+} from 'typeorm';
 import { Review } from './Review';
+import { AvatarPhoto } from './AvatarPhoto';
 
 @Entity()
 export class User {
@@ -17,6 +26,10 @@ export class User {
 
   @Column({ default: 0 })
   profileViews: number;
+
+  @OneToOne(() => AvatarPhoto, (avatarPhoto) => avatarPhoto.user)
+  @JoinColumn()
+  avatarPhoto: Relation<AvatarPhoto>;
 
   @OneToMany(() => Review, (review) => review.user)
   reviews: Relation<Review>[];
